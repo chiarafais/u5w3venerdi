@@ -31,24 +31,14 @@ public class JWTFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        //  Mancanza di Authorization Header -> 401
         String authHeader = request.getHeader("Authorization");
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")) throw new UnauthorizedException("Inserisci il token nell'Authorization Header");
-
-        //  Se c'è estraiamo il token dall'header
         String accessToken = authHeader.substring(7);
-
-        //  Verifica della signature e verifica Expiration Date
         jwtTools.verifyToken(accessToken);
-
-
-        //  Cerco l'utente nel DB tramite id (l'id sta nel token..)
         String id = jwtTools.extractIdFromToken(accessToken);
         int dipendenteId = Integer.parseInt(id);
         Utente currentUtente = this.utentiService.findById(dipendenteId);
-
-        //  Associo l'utente alla richiesta corrente
         Authentication authentication = new UsernamePasswordAuthenticationToken(currentUtente, null, currentUtente.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

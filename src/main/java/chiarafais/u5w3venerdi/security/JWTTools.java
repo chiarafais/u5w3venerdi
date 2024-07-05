@@ -20,8 +20,7 @@ public class JWTTools {
                 .issuedAt(
                         new Date(
                                 System
-                                        .currentTimeMillis())) // Data di emissione del token (IAT - Issued AT) in
-                // millisecondi
+                                        .currentTimeMillis())) // Data di emissione del token in millisecondi
                 .expiration(
                         new Date(
                                 System.currentTimeMillis()
@@ -45,9 +44,7 @@ public class JWTTools {
             throw new UnauthorizedException("Token non valido!");
 
         }
-
     }
-
     public String extractIdFromToken(String token){
         return Jwts.parser()
                 .verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))

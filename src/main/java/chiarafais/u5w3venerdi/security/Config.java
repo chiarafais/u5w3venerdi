@@ -16,9 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 public class Config {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.formLogin(http -> http.disable()); // disabilito il form di login in frontend predefinito
-        httpSecurity.csrf(http -> http.disable()); // Non voglio la protezione da CSRF (per la portata di questa applicazione non è necessaria)
-        httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Non voglio le sessioni (perché utilizzeremo la token based authentication con JWT)
+        httpSecurity.formLogin(http -> http.disable());
+        httpSecurity.csrf(http -> http.disable());
+        httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").permitAll());
 

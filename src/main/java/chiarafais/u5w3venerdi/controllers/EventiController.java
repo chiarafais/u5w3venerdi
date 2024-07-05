@@ -78,7 +78,7 @@ public class EventiController {
     //     PRENOTA
 //     POST http://localhost:3001/eventi/{eventoId}/prenota (+authorization bear token da partecipante)
     @PostMapping("/{eventoId}/prenota")
-    @PreAuthorize("hasAuthority('PARTECIPANTE')") //solo un utente di tipo partecipante può creare eventi
+    @PreAuthorize("hasAuthority('PARTECIPANTE')") //solo un utente di tipo partecipante può prenotare un evento
     public ResponseEntity<String> prenotaPosto(@PathVariable int eventoId) {
         boolean prenotazioneRiuscita = eventiService.prenotaPosto(eventoId);
         if (prenotazioneRiuscita) {
